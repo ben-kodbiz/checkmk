@@ -212,10 +212,6 @@ end
 ## **4. Install Checkmk Agents**  
 
 ### **4.1 Ansible Playbook for Ubuntu Agents**  
-
-Create `agent_install.yml`:
-
-```yaml
 - name: Install Checkmk Agent
   hosts: all
   become: yes
@@ -225,12 +221,18 @@ Create `agent_install.yml`:
         wget https://download.checkmk.com/checkmk/2.1.0p23/check-mk-agent_2.1.0p23-1_all.deb
         dpkg -i check-mk-agent_2.1.0p23-1_all.deb
 
-    - name: Enable Agent xinetd Service
+    - name: Enable and Start Checkmk Agent
       systemd:
-        name: xinetd
+        name: check-mk-agent.socket
         enabled: yes
         state: started
-```
+
+    - name: Allow Checkmk Agent Port in Firewall
+      ufw:
+        rule: allow
+        port: "6556"
+        proto: tcp
+
 
 Run the setup:
 
