@@ -212,6 +212,7 @@ end
 ## **4. Install Checkmk Agents**  
 
 ### **4.1 Ansible Playbook for Ubuntu Agents**  
+```
 - name: Install Checkmk Agent
   hosts: all
   become: yes
@@ -232,6 +233,7 @@ end
         rule: allow
         port: "6556"
         proto: tcp
+```
 
 
 Run the setup:
